@@ -1,0 +1,74 @@
+/* VOICE: quiet, compact, text first
+   IDEA: a plain text column, like a tool's side panel
+   PICTURE: small 84x52 thumbnails in the work list (or none); one 576x356 placeholder on case pages
+   COLOUR and TYPE: black, white, one grey; Roboto 400, cap 12 and cap 8
+   LAYOUT: 576 column at 136 from the edges; every block and gap is a golden-grid step */
+:root{
+  --s4:4px;--s8:8px;--s12:12px;--s20:20px;--s32:32px;--s52:52px;--s84:84px;--s136:136px;--s220:220px;--s356:356px;--s576:576px;
+  --t8:11.25px;--t12:16.88px;--lh12:20px;
+  --bg:#0B1017;--ink:#fff;--mute:#7D8896;--line:#29313C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:Roboto,Arial,sans-serif;font-weight:400;font-size:var(--t12);line-height:var(--lh12);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-size:inherit;line-height:inherit;font-weight:400}
+img{display:block}
+.t{text-box:trim-both cap alphabetic;-webkit-text-box:trim-both cap alphabetic}
+.mute{color:var(--mute)}
+.small{font-size:var(--t8);letter-spacing:.01em}
+.page{width:100%;max-width:1508px;min-height:932px;margin:0 auto;padding:var(--s136)}
+.col{width:var(--s576);display:flex;flex-direction:column}
+.g8{height:var(--s8)}.g20{height:var(--s20)}.g32{height:var(--s32)}.g52{height:var(--s52)}.g84{height:var(--s84)}
+.links{display:flex;gap:var(--s32)}
+.links a{text-decoration:underline solid var(--mute) 1px;text-underline-offset:8px}
+.links a:hover,.links a:focus-visible{text-decoration-color:var(--ink);outline:none}
+.links a.pdf{text-decoration-color:var(--ink)}
+/* work list: each row is 52 tall, lines drawn without taking space */
+.rows{display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:var(--s20);height:var(--s52);box-shadow:inset 0 1px 0 var(--line)}
+.row:last-child{box-shadow:inset 0 1px 0 var(--line),inset 0 -1px 0 var(--line)}
+.row img{width:var(--s84);height:var(--s52);object-fit:cover;filter:grayscale(1);opacity:.8;transition:filter .2s,opacity .2s}
+.row .name{width:var(--s136)}
+.row .name span{text-decoration:underline dashed var(--mute) 1px;text-underline-offset:6px}
+.row .d{flex:1}
+.row .go{color:var(--mute)}
+.row:hover,.row:focus-visible{background:#131A23;outline:none}
+.row:hover .name span,.row:focus-visible .name span{text-decoration-style:solid;text-decoration-color:var(--ink)}
+.row:hover .go,.row:focus-visible .go{color:var(--ink)}
+.row:hover img,.row:focus-visible img{filter:none;opacity:1}
+/* case page */
+.shot{position:relative;width:var(--s576);height:var(--s356);overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover}
+.ribbon{position:absolute;top:32px;right:-52px;width:var(--s220);height:var(--s20);background:#7C5CFF;color:#FFFFFF;display:flex;align-items:center;justify-content:center;transform:rotate(45deg);letter-spacing:.04em}
+/* grid check */
+.gridbtn{position:fixed;right:var(--s20);bottom:var(--s20);z-index:20;font:inherit;font-size:var(--t8);color:var(--mute);background:var(--bg);border:1px solid var(--line);height:var(--s32);padding:0 var(--s12);cursor:pointer}
+.gridbtn:hover,.gridbtn[aria-pressed=true]{color:var(--ink);border-color:var(--ink)}
+body.grid .page{background-image:linear-gradient(rgba(255,59,48,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,59,48,.18) 1px,transparent 1px);background-size:16px 16px;background-position:0 0}
+@media (prefers-reduced-motion:reduce){.row img{transition:none}}
+.who{display:flex;align-items:center;gap:var(--s20)}
+.who-text{display:flex;flex-direction:column}
+.avatar{width:var(--s52);height:var(--s52);border-radius:50%;object-fit:cover}
+.g12{height:var(--s12)}
+.pdfblock{display:flex;flex-direction:column}
+.pdflink{align-self:flex-start;text-decoration:underline solid var(--ink) 1px;text-underline-offset:4px}
+.pdflink:hover,.pdflink:focus-visible{text-decoration-thickness:2px;outline:none}
+
+/* MOBILE (< 848 = 576 + 2x136): side margins 20, column = screen - 40; paragraphs line-height 24.
+   Work row: name + "Coming soon" on top, description below; 20 + 12 + 20 + 12 + 20 = 84.
+   Case picture 356x220. */
+@media (max-width:847px){
+  .page{min-height:0;padding:var(--s52) 0 var(--s84)}
+  .page{padding-left:var(--s20);padding-right:var(--s20)}
+  .col{width:100%;margin:0 auto}
+  p.t{line-height:24px}
+  .links{flex-wrap:wrap;column-gap:var(--s32);row-gap:var(--s20)}
+  .row{flex-wrap:wrap;align-items:flex-start;align-content:flex-start;column-gap:0;row-gap:var(--s20);height:var(--s84);padding-top:var(--s20)}
+  .row .name{width:auto;flex:1}
+  .row .go{order:2}
+  .row .d{order:3;flex:0 0 100%;color:var(--mute)}
+  .shot{width:100%;height:auto;aspect-ratio:356/220}
+  .ribbon{top:20px;right:-64px}
+  .role{display:flex;flex-direction:column;row-gap:var(--s8)}
+  .role .dot{display:none}
+}
