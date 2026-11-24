@@ -17,7 +17,7 @@ img{display:block}
 .t{text-box:trim-both cap alphabetic;-webkit-text-box:trim-both cap alphabetic}
 .mute{color:var(--mute)}
 .small{font-size:var(--t8);letter-spacing:.01em}
-.page{width:100%;max-width:1508px;min-height:932px;margin:0 auto;padding:var(--s136)}
+.page{width:100%;min-height:932px;padding:var(--s136)} /* desktop: column always 136 from the left edge of the window, any width */
 .col{width:var(--s576);display:flex;flex-direction:column}
 .g8{height:var(--s8)}.g20{height:var(--s20)}.g32{height:var(--s32)}.g52{height:var(--s52)}.g84{height:var(--s84)}
 .links{display:flex;gap:var(--s32)}
